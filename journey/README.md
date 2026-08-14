@@ -6,7 +6,7 @@ Welcome to our raw, unfiltered engineering log. Here we document our daily decis
 
 ## 📌 Table of Contents
 * [Day 1 — August 13, 2026: The Calm Before the Storm](#-day-1--august-13-2026-the-calm-before-the-storm)
-* [Day 2 — August 14, 2026: Point of No Return: Motors, Math & Sisyphus CAD](#-day-2--august-14-2026-point-of-no-return-motors-math--sisyphus-cad)
+* [Day 2 — August 14, 2026: Point of No Return: Motors, Math & CAD Overhaul](#-day-2--august-14-2026-point-of-no-return-motors-math--cad-overhaul)
 
 ---
 
@@ -24,19 +24,19 @@ Every journey begins with ordinary enthusiasm and a blank slate. Today was dedic
 
 ---
 
-## 📅 Day 2 — August 14, 2026: Point of No Return: Motors, Math & Sisyphus CAD
+## 📅 Day 2 — August 14, 2026: Point of No Return: Motors, Math & CAD Overhaul
 
 There is no turning back now. Today theory collided violently with practical hardware constraints, turning into a marathon of mathematical calculations and complete CAD overhauls.
 
 ---
 
-### 1. The Sisyphus Cycle: 3D CAD vs. Motor Dilemma
+### 1. Drivetrain & 3D CAD Iterations: "Ah, Here We Go Again"
 
-Our CAD engineer lived the myth of Sisyphus today. Every time we re-evaluated motor torque and gear availability, the entire rear drivetrain had to be redesigned.
+Our CAD engineer had an exhausting day. Every time the team re-evaluated motor torque and reduction ratios, the entire rear drivetrain and motor mounts had to be completely remodeled from scratch.
 
 <div align="center">
-  <img src="assets/sisyphus_cad.png" width="360" alt="CAD Engineer Sisyphus Meme"/>
-  <p><i>Figure 1: Redesigning the rear axle and motor mounts for the 3rd time today.</i></p>
+  <img src="assets/day02_meme_cj.jpg" width="300" alt="CAD Engineer Here We Go Again Meme"/>
+  <p><i>Figure 1: Opening Fusion 360 for the 3rd drivetrain redesign today.</i></p>
 </div>
 
 * **Iteration 1 (N20 Micro Metal Gear):** Ultra-compact, but structural analysis showed the brass micro-gears would strip under Ackermann steering shock loads.
@@ -70,6 +70,7 @@ Using $60\text{ mm}$ ($0.06\text{ m}$) diameter wheels:
   $$\text{Final Speed} = \frac{310\text{ RPM} \times 0.1885\text{ m}}{60} \approx \mathbf{0.97\text{ m/s (3.5 km/h)}}$$
 
 > 💡 **Engineering Outcome:** At $0.97\text{ m/s}$, the robot covers only $3.2\text{ cm}$ per camera frame (30 FPS), providing sufficient headroom for real-time OpenCV color segmentation while delivering strong climbing and acceleration torque.
+
 ---
 
 ### 3. Gyroscope vs. Encoders: Theoretical Overload
@@ -99,4 +100,4 @@ We debated whether wheel encoders were mandatory for lap counting and parallel p
 ## 🛠️ Tools & Acknowledgments
 * **Design & Simulation:** Fusion 360, Draw.io
 * **Firmware & Control:** Arduino IDE, Python 3, OpenCV
-* **Documentation Note:** Large Language Models were utilized strictly for grammatical refinement, translation clarity, and markdown formatting. All engineering decisions, mathematical derivations, code architecture, and testing logs are 100% originally developed by Team RObots and Me.
+* **Documentation Note:** Large Language Models were utilized strictly for grammatical refinement, translation clarity, and markdown formatting. All engineering decisions, mathematical derivations, code architecture, and testing logs are 100% originally developed by Team Robots and Me.
