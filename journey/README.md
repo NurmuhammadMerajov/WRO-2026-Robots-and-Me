@@ -40,8 +40,8 @@ Our CAD engineer had an exhausting day. Every time the team re-evaluated motor t
 </div>
 
 * **Iteration 1 (N20 Micro Metal Gear):** Ultra-compact, but structural analysis showed the brass micro-gears would strip under Ackermann steering shock loads.
-* **Iteration 2 (Chihai 16mm 230 RPM):** Strong motor, but 230 RPM geared down through a bevel differential dropped wheel speed to a crawl (~$0.35\text{ m/s}$).
-* **Iteration 3 (GA25-370 12V 620 RPM + 2:1 Bevel Differential):** **The Winning Strategy.** Robust metal gearbox, direct 3S Li-Po compatibility, and an ideal external reduction gear delivering ~$0.97\text{ m/s}$ track speed.
+* **Iteration 2 (Chihai 16mm 230 RPM):** Strong motor, but 230 RPM geared down through a bevel differential dropped wheel speed to a crawl (~0.35 m/s).
+* **Iteration 3 (GA25-370 12V 620 RPM + 2:1 Bevel Differential):** **The Winning Strategy.** Robust metal gearbox, direct 3S Li-Po compatibility, and an ideal external reduction gear delivering ~0.97 m/s track speed.
 
 ---
 
@@ -62,14 +62,14 @@ Using $60\text{ mm}$ ($0.06\text{ m}$) diameter wheels:
 
 * **Direct Drive Speed (Without Differential):**
   $$V_{\text{raw}} = \frac{620\text{ RPM} \times 0.1885\text{ m}}{60} \approx 1.95\text{ m/s (7.0 km/h)}$$
-  *(At 30 FPS, the robot moves $6.5\text{ cm}$ per frame).*
+  *(At 30 FPS, the robot moves 6.5 cm per frame).*
 
 * **With 2:1 Custom Bevel Differential ($Z_1 = 15, Z_2 = 30$ teeth):**
   $$i = \frac{Z_{\text{crown}}}{Z_{\text{pinion}}} = \frac{30}{15} = 2.0$$
   $$\text{Final Wheel RPM} = \frac{620\text{ RPM}}{2.0} = 310\text{ RPM}$$
-  $$\text{Final Speed} = \frac{310\text{ RPM} \times 0.1885\text{ m}}{60} \approx \mathbf{0.97\text{ m/s (3.5 km/h)}}$$
+  $$\text{Final Speed} = \frac{310\text{ RPM} \times 0.1885\text{ m}}{60} \approx 0.97\text{ m/s (3.5 km/h)}$$
 
-> 💡 **Engineering Outcome:** At $0.97\text{ m/s}$, the robot covers only $3.2\text{ cm}$ per camera frame (30 FPS), providing sufficient headroom for real-time OpenCV color segmentation while delivering strong climbing and acceleration torque.
+> 💡 **Engineering Outcome:** At 0.97 m/s, the robot covers only 3.2 cm per camera frame (30 FPS), providing sufficient headroom for real-time OpenCV color segmentation while delivering strong climbing and acceleration torque.
 
 ---
 
