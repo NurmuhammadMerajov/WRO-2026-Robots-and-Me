@@ -41,7 +41,7 @@ Our CAD engineer lived the myth of Sisyphus today. Every time we re-evaluated mo
 
 * **Iteration 1 (N20 Micro Metal Gear):** Ultra-compact, but structural analysis showed the brass micro-gears would strip under Ackermann steering shock loads.
 * **Iteration 2 (Chihai 16mm 230 RPM):** Strong motor, but 230 RPM geared down through a bevel differential dropped wheel speed to a crawl (~$0.35\text{ m/s}$).
-* **Iteration 3 (GA25-370 12V 915 RPM + 2:1 Bevel Differential):** **The Winning Strategy.** Robust metal gearbox, direct 3S Li-Po compatibility, and an external reduction gear.
+* **Iteration 3 (GA25-370 12V 620 RPM + 2:1 Bevel Differential):** **The Winning Strategy.** Robust metal gearbox, direct 3S Li-Po compatibility, and an ideal external reduction gear delivering ~$0.97\text{ m/s}$ track speed.
 
 ---
 
@@ -61,15 +61,15 @@ Using $60\text{ mm}$ ($0.06\text{ m}$) diameter wheels:
   $$L = \pi \times D = 3.1415 \times 0.06\text{ m} = 0.1885\text{ m}$$
 
 * **Direct Drive Speed (Without Differential):**
-  $$V_{\text{raw}} = \frac{915\text{ RPM} \times 0.1885\text{ m}}{60} \approx 2.87\text{ m/s (10.3 km/h)}$$
-  *(At 30 FPS, the robot moves $9.5\text{ cm}$ per frame — far too fast for stable OpenCV color segmentation).*
+  $$V_{\text{raw}} = \frac{620\text{ RPM} \times 0.1885\text{ m}}{60} \approx 1.95\text{ m/s (7.0 km/h)}$$
+  *(At 30 FPS, the robot moves $6.5\text{ cm}$ per frame).*
 
 * **With 2:1 Custom Bevel Differential ($Z_1 = 15, Z_2 = 30$ teeth):**
   $$i = \frac{Z_{\text{crown}}}{Z_{\text{pinion}}} = \frac{30}{15} = 2.0$$
-  $$\text{Final Speed} = \frac{2.87\text{ m/s}}{2.0} \approx \mathbf{1.43\text{ m/s (5.1 km/h)}}$$
+  $$\text{Final Wheel RPM} = \frac{620\text{ RPM}}{2.0} = 310\text{ RPM}$$
+  $$\text{Final Speed} = \frac{310\text{ RPM} \times 0.1885\text{ m}}{60} \approx \mathbf{0.97\text{ m/s (3.5 km/h)}}$$
 
-> 💡 **Engineering Outcome:** Speed dropped to an optimal racing window while doubling the available axle torque.
-
+> 💡 **Engineering Outcome:** At $0.97\text{ m/s}$, the robot covers only $3.2\text{ cm}$ per camera frame (30 FPS), providing sufficient headroom for real-time OpenCV color segmentation while delivering strong climbing and acceleration torque.
 ---
 
 ### 3. Gyroscope vs. Encoders: Theoretical Overload
@@ -90,10 +90,9 @@ We debated whether wheel encoders were mandatory for lap counting and parallel p
 ---
 
 ### 🛠️ Hardware Decisions Locked (August 14):
-* **Drive Motor:** GA25-370 12V 915 RPM via TB6612FNG MOSFET driver.
+* **Drive Motor:** GA25-370 12V 620 RPM via TB6612FNG MOSFET driver.
 * **Steering Actuator:** Surpass Hobby 25g Metal-Gear Digital Servo ($3.0\text{ kg}\cdot\text{cm}$).
 * **Localization:** LSM6DSOX Gyroscope + Ultrasonic Sensor Fusion.
-
 
 ---
 
