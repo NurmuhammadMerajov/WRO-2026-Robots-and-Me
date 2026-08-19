@@ -38,10 +38,40 @@ We express our sincere gratitude and appreciation to our dedicated mentor and in
 
 Our project operates on an agile systems-engineering model where software, electrical, and mechanical domains interface seamlessly:
 
-| Team Member | Engineering Role | Primary Responsibilities | Core Tech Stack |
-| :--- | :--- | :--- | :--- |
-| **Nurmuhammad Merajov** | **Software & Math Lead** | Computer Vision (OpenCV), Path Planning (FSM), Mathematical Kinematics, Serial Protocol. | Python 3, C++, NumPy, OpenCV |
-| **Kamron Kamolov** | **Mechanical CAD Lead** | 3D CAD Design (Chassis, Differential Gearbox, Steering Knuckles), Slicing & 3D Printing. | Fusion 360, PETG FDM |
-| **Doston Rustamov** | **Electronics & Embedded Lead** | Electrical Schematics, Power Distribution, Low-level MCU Wiring, Circuitry & Actuation. | Arduino C++, TB6612FNG, UART |
+<table>
+  <tr>
+    <td align="center" width="200">
+      <img src="photos/nurmuhammad.jpg" width="130" style="border-radius: 50%;"><br>
+      <b>Nurmuhammad Merajov</b><br>
+      <i>Software & Math Lead</i>
+    </td>
+    <td>
+      <b>Primary Responsibilities:</b> Computer Vision (OpenCV), Path Planning (FSM), Mathematical Kinematics, Serial Protocol.<br>
+      <b>Core Tech Stack:</b> Python 3, C++, NumPy, OpenCV
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="200">
+      <img src="photos/kamron.jpg" width="130" style="border-radius: 50%;"><br>
+      <b>Kamron Kamolov</b><br>
+      <i>Mechanical CAD Lead</i>
+    </td>
+    <td>
+      <b>Primary Responsibilities:</b> 3D CAD Design (Chassis, Differential Gearbox, Steering Knuckles), Slicing & 3D Printing.<br>
+      <b>Core Tech Stack:</b> Fusion 360, PETG FDM
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="200">
+      <img src="photos/doston.jpg" width="130" style="border-radius: 50%;"><br>
+      <b>Doston Rustamov</b><br>
+      <i>Electronics & Embedded Lead</i>
+    </td>
+    <td>
+      <b>Primary Responsibilities:</b> Electrical Schematics, Power Distribution, Low-level MCU Wiring, Circuitry & Actuation.<br>
+      <b>Core Tech Stack:</b> Arduino C++, TB6612FNG, UART
+    </td>
+  </tr>
+</table>
 ---
 

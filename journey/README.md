@@ -118,14 +118,14 @@ Today was a massive leap forward on both the software and hardware fronts. We mo
 Our CAD engineer translated our mathematical models and component dimensions into functional 3D geometry. 
 
 <div align="center">
-  <img src="assets/rear_drivetrain.png" width="450" alt="Rear Drivetrain CAD"/>
+  <img src="assets/rear_drivetrain.jpg" width="450" alt="Rear Drivetrain CAD"/>
   <p><i>Figure 4: Designing the rear drive unit featuring the GA25 motor and 2:1 bevel gear differential on the base plate.</i></p>
 </div>
 
 Once the rear axle was verified, we assembled the full digital twin of the vehicle. 
 
 <div align="center">
-  <img src="assets/full_chassis.png" width="450" alt="Full Chassis CAD"/>
+  <img src="assets/full_chassis.jpg" width="450" alt="Full Chassis CAD"/>
   <p><i>Figure 5: Full vehicle assembly. Notice the central battery placement for a low Center of Gravity (CoG), and the front Ackermann steering knuckles connected to the servo.</i></p>
 </div>
 
