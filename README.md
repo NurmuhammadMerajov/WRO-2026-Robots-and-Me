@@ -33,3 +33,15 @@ We express our sincere gratitude and appreciation to our dedicated mentor and in
 
 ---
 
+---
+## 2. Team Structure & Roles
+
+Our project operates on an agile systems-engineering model where software, electrical, and mechanical domains interface seamlessly:
+
+| Team Member | Engineering Role | Primary Responsibilities | Core Tech Stack |
+| :--- | :--- | :--- | :--- |
+| **Nurmuhammad Merajov** | **Software & Math Lead** | Computer Vision (OpenCV), Path Planning (FSM), Mathematical Kinematics, Serial Protocol. | Python 3, C++, NumPy, OpenCV |
+| **Kamron Kamolov** | **Mechanical CAD Lead** | 3D CAD Design (Chassis, Differential Gearbox, Steering Knuckles), Slicing & 3D Printing. | Fusion 360, PETG FDM |
+| **Doston Rustamov** | **Electronics & Embedded Lead** | Electrical Schematics, Power Distribution, Low-level MCU Wiring, Circuitry & Actuation. | Arduino C++, TB6612FNG, UART |
+---
+
