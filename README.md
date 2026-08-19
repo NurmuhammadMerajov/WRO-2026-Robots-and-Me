@@ -41,7 +41,7 @@ Our project operates on an agile systems-engineering model where software, elect
 <table>
   <tr>
     <td align="center" width="200">
-      <img src="photos/Nurmuhammd.jpg" width="130" style="border-radius: 50%;"><br>
+      <img src="photos/Nurmuhammad.jpg" width="130" style="border-radius: 50%;"><br>
       <b>Nurmuhammad Merajov</b><br>
       <i>Software & Math Lead</i>
     </td>
