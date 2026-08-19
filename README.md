@@ -74,13 +74,16 @@ Our project operates on an agile systems-engineering model where software, elect
   </tr>
 </table>
 ---
+
 ## 3. Electrical Schematics & Power Mathematics
 
 *There is a well-known rule in robotics: **"If you haven't inhaled the toxic black smoke of a fried microcontroller at 2:00 AM, you are not a real engineer."*** 
 *We have definitely smelled that "magic smoke" in the past, which is exactly why we designed an extremely paranoid, highly isolated power distribution system to prevent it from happening again.*
 
 ### 3.1 Power Distribution Architecture
+
 The vehicle uses a partitioned dual-rail power topology to completely isolate high-frequency logic electronics from motor inductive spikes:
+
 <div align="center">
   <img src="schematics/power_distribution.png" width="700" alt="Power Distribution Schematic"/>
   <p><i>Figure: Dual-rail isolated power distribution system preventing MCU brownouts.</i></p>
