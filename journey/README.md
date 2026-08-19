@@ -7,6 +7,8 @@ Welcome to our raw, unfiltered engineering log. Here we document our daily decis
 ## 📌 Table of Contents
 * [Day 1 — August 13, 2026: The Calm Before the Storm](#-day-1--august-13-2026-the-calm-before-the-storm)
 * [Day 2 — August 14, 2026: Point of No Return: Motors, Math & CAD Overhaul](#-day-2--august-14-2026-point-of-no-return-motors-math--cad-overhaul)
+* [Day 3 — August 15, 2026: Preparing the Brain's Memory](#-day-3--august-15-2026-preparing-the-brains-memory)
+* [Day 4 — August 18, 2026: First Brainwaves & Full CAD Assembly](#-day-4--august-18-2026-first-brainwaves--full-cad-assembly)
 
 ---
 
@@ -96,6 +98,44 @@ We debated whether wheel encoders were mandatory for lap counting and parallel p
 * **Localization:** LSM6DSOX Gyroscope + Ultrasonic Sensor Fusion.
 
 ---
+## 📅 Day 3 — August 15, 2026: Preparing the Brain's Memory
+
+Before the Raspberry Pi can see or think, it needs a reliable place to store its operating system and vision algorithms. 
+
+* **Hardware Acquisition:** We successfully procured a **32GB Class 10/UHS-I Micro SD card**. 
+* **Why 32GB?** This capacity provides the perfect balance. It is spacious enough to hold the 64-bit Raspberry Pi OS, the heavy OpenCV computer vision libraries, and our Python scripts, while the Class 10 speed ensures high-speed I/O without bottlenecking the real-time camera processing.
+
+---
+
+## 📅 Day 4 — August 18, 2026: First Brainwaves & Full CAD Assembly
+
+Today was a massive leap forward on both the software and hardware fronts. We moved from 2D concepts to 3D reality, and our main compute unit finally woke up.
+
+### 1. Headless Connection (The First Pulse)
+* **SSH Established:** We successfully booted the Raspberry Pi and established a headless SSH connection. The "brain" of our robot is now communicating over the local network. This means we can start deploying Python scripts, configuring the Serial UART, and testing OpenCV pipelines directly from our laptops without needing external monitors or keyboards.
+
+### 2. 3D CAD: From Rear Axle to Full Chassis
+Our CAD engineer translated our mathematical models and component dimensions into functional 3D geometry. 
+
+<div align="center">
+  <img src="assets/rear_drivetrain.png" width="450" alt="Rear Drivetrain CAD"/>
+  <p><i>Figure 4: Designing the rear drive unit featuring the GA25 motor and 2:1 bevel gear differential on the base plate.</i></p>
+</div>
+
+Once the rear axle was verified, we assembled the full digital twin of the vehicle. 
+
+<div align="center">
+  <img src="assets/full_chassis.png" width="450" alt="Full Chassis CAD"/>
+  <p><i>Figure 5: Full vehicle assembly. Notice the central battery placement for a low Center of Gravity (CoG), and the front Ackermann steering knuckles connected to the servo.</i></p>
+</div>
+
+### 3. Physical Fabrication Prep
+Before hitting "Print" on 20 hours of PETG plastic, we used laser-cut wooden templates to physically verify our wheelbase, track width, and structural rigidity.
+
+<div align="center">
+  <img src="assets/laser_cut_template.png" width="300" alt="Laser Cut Template"/>
+  <p><i>Figure 6: Custom laser-cut calibration tool and chassis prototype for physical geometry verification.</i></p>
+</div>
 
 ## 🛠️ Tools & Acknowledgments
 * **Design & Simulation:** Fusion 360, Draw.io
