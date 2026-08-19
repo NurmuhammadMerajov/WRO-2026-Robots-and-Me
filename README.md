@@ -52,7 +52,7 @@ Our project operates on an agile systems-engineering model where software, elect
   </tr>
   <tr>
     <td align="center" width="200">
-      <img src="photos/kamron.jpg" width="130" style="border-radius: 50%;"><br>
+      <img src="photos/Kamron.jpg" width="130" style="border-radius: 50%;"><br>
       <b>Kamron Kamolov</b><br>
       <i>Mechanical CAD Lead</i>
     </td>
@@ -63,7 +63,7 @@ Our project operates on an agile systems-engineering model where software, elect
   </tr>
   <tr>
     <td align="center" width="200">
-      <img src="photos/doston.jpg" width="130" style="border-radius: 50%;"><br>
+      <img src="photos/Doston.jpg" width="130" style="border-radius: 50%;"><br>
       <b>Doston Rustamov</b><br>
       <i>Electronics & Embedded Lead</i>
     </td>
@@ -73,6 +73,7 @@ Our project operates on an agile systems-engineering model where software, elect
     </td>
   </tr>
 </table>
+
 ---
 
 ## 3. Electrical Schematics & Power Mathematics
@@ -85,6 +86,6 @@ Our project operates on an agile systems-engineering model where software, elect
 The vehicle uses a partitioned dual-rail power topology to completely isolate high-frequency logic electronics from motor inductive spikes:
 
 <div align="center">
-  <img src="schematics/power_distribution.png" width="700" alt="Power Distribution Schematic"/>
+  <img src="schematics/power_distribution.drawio.png" width="700" alt="Power Distribution Schematic"/>
   <p><i>Figure: Dual-rail isolated power distribution system preventing MCU brownouts.</i></p>
 </div>
