@@ -107,14 +107,14 @@ Selecting the right hardware is only half the battle; knowing how to extract pre
 
 <table>
   <tr>
-    <td width="20%" align="center"><img src="photos/raspberrypi4bmodel.jpg" width="120"></td>
+    <td width="20%" align="center"><img src="photos/raspberrypi4bmodel.jfif" width="120"></td>
     <td>
       <b>Raspberry Pi 4 Model B (4GB) — The Brain</b><br>
       <i>Instruction:</i> Handles heavy OpenCV computer vision algorithms. Powered directly from the 5V/5A Buck Converter via the 5V GPIO pins.
     </td>
   </tr>
   <tr>
-    <td width="20%" align="center"><img src="photos/arduinonano.jpg" width="120"></td>
+    <td width="20%" align="center"><img src="photos/arduinonano.jfif" width="120"></td>
     <td>
       <b>Arduino Nano — The Spinal Cord</b><br>
       <i>Instruction:</i> Handles real-time 50Hz sensor polling and PWM generation. Connects to the Raspberry Pi via USB (Serial UART).
