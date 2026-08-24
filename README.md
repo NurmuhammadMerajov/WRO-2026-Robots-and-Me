@@ -103,93 +103,102 @@ The vehicle uses a partitioned dual-rail power topology to completely isolate hi
 
 ## 5. Hardware Bill of Materials (BoM) & Interfacing Logic
 
-Selecting the right hardware is only half the battle; knowing how to extract precise data from them mathematically is what makes the vehicle autonomous. Below is our verified hardware stack.
-
-## 5. Hardware Bill of Materials (BoM) & Interfacing Logic
-
 Selecting the right hardware is only half the battle; knowing how to extract precise data from them mathematically is what makes the vehicle autonomous. Below is our verified hardware stack with detailed technical parameters.
 
-<table>
-  <tr>
-    <td width="20%" align="center"><img src="photos/raspberrypi4bmodel.jfif" width="120"></td>
-    <td>
-      <b>Raspberry Pi 4 Model B — The Brain</b><br>
-      ▪ <b>Processor:</b> Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz<br>
-      ▪ <b>Memory:</b> 4GB LPDDR4-3200 SDRAM<br>
-      ▪ <b>Power Logic:</b> 5.0V / 3.0A DC via GPIO<br>
-      ▪ <b>Instruction:</b> Handles heavy OpenCV computer vision algorithms and Finite State Machine logic. Powered directly from the 5V Buck Converter.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/arduinonano.jfif" width="120"></td>
-    <td>
-      <b>Arduino Nano — The Spinal Cord</b><br>
-      ▪ <b>Microcontroller:</b> ATmega328P (8-bit) @ 16MHz<br>
-      ▪ <b>Logic Level:</b> 5V<br>
-      ▪ <b>Communication:</b> Serial UART (115200 Baud), I2C, PWM<br>
-      ▪ <b>Instruction:</b> Handles real-time 50Hz sensor polling and exact PWM generation. Connects to the Raspberry Pi via USB Serial.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/LSM6DSOX.png" width="120"></td>
-    <td>
-      <b>LSM6DSOX 6-DoF IMU (Advanced Gyroscope)</b><br>
-      ▪ <b>Communication:</b> I2C Protocol (Address: <code>0x6A</code>)<br>
-      ▪ <b>Gyro Range:</b> Configured to ±500 dps (Degrees Per Second)<br>
-      ▪ <b>Accel Range:</b> Configured to ±2g<br>
-      ▪ <b>Instruction:</b> An industrial-grade upgrade over the legacy MPU6050. Hardware-scaled down for extreme ground sensitivity and dead reckoning.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/ga25motor.jpg" width="120"></td>
-    <td>
-      <b>GA25-370 12V DC Motor</b><br>
-      ▪ <b>Operating Voltage:</b> 12V DC<br>
-      ▪ <b>No-Load Speed:</b> 620 RPM<br>
-      ▪ <b>Gearbox:</b> Full Metal Spur Gear<br>
-      ▪ <b>Instruction:</b> The main drive actuator. Connected to the custom 2:1 rear differential. Powered directly by the raw 11.1V battery rail to maximize torque.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/tb6612fng.png" width="120"></td>
-    <td>
-      <b>TB6612FNG Dual Motor Driver</b><br>
-      ▪ <b>Output Current:</b> 1.2A (Average) / 3.2A (Peak) per channel<br>
-      ▪ <b>Technology:</b> MOSFET-based H-Bridge (Low Voltage Drop)<br>
-      ▪ <b>Instruction:</b> Chosen over the outdated L298N for maximum power efficiency. <code>STBY</code> pin must be pulled HIGH for the motor to move.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/ultrasonic.jfif" width="120"></td>
-    <td>
-      <b>3x HC-SR04 Ultrasonic Sonars</b><br>
-      ▪ <b>Operating Frequency:</b> 40kHz Ultrasound<br>
-      ▪ <b>Measuring Range:</b> 2cm – 400cm<br>
-      ▪ <b>Resolution:</b> 0.3cm<br>
-      ▪ <b>Instruction:</b> Placed at the Left, Center, and Right for precise wall-following. Triggered sequentially to prevent acoustic cross-talk.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/batary.jpg" width="120"></td>
-    <td>
-      <b>GIFU 18650 Li-Ion Cell</b><br>
-      ▪ <b>Capacity:</b> 1500mAh[cite: 2]<br>
-      ▪ <b>Nominal Voltage:</b> 3.7V per cell[cite: 2]<br>
-      ▪ <b>Chemistry:</b> Lithium-Ion (Li-Ion)[cite: 2]<br>
-      ▪ <b>Instruction:</b> Connected in series (3S) to provide a stable, high-current 11.1V raw power rail for the motor driver and Buck Converter.
-    </td>
-  </tr>
-  <tr>
-    <td width="20%" align="center"><img src="photos/batareyaotsek.jpg" width="120"></td>
-    <td>
-      <b>18650 Battery Holder</b><br>
-      ▪ <b>Form Factor:</b> Standard 18650 sizes[cite: 1]<br>
-      ▪ <b>Configuration:</b> 3-Slot Series Connection (3S)<br>
-      ▪ <b>Wiring:</b> High-gauge copper leads[cite: 1]<br>
-      ▪ <b>Instruction:</b> Mechanically secures the batteries to the chassis to prevent disconnections from high-speed cornering vibrations.
-    </td>
-  </tr>
-</table>
+---
+
+### 🧠 Raspberry Pi 4 Model B (4GB) — The Brain
+<div align="center">
+  <img src="photos/raspberrypi4bmodel.jfif" width="400" alt="Raspberry Pi 4"/>
+</div>
+
+* **Processor:** Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz
+* **Memory:** 4GB LPDDR4-3200 SDRAM
+* **Power Logic:** 5.0V / 3.0A DC via GPIO
+* **Instruction:** Handles heavy OpenCV computer vision algorithms and Finite State Machine logic. Powered directly from the 5V Buck Converter.
+
+---
+
+### ⚡ Arduino Nano — The Spinal Cord
+<div align="center">
+  <img src="photos/arduinonano.jfif" width="400" alt="Arduino Nano"/>
+</div>
+
+* **Microcontroller:** ATmega328P (8-bit) @ 16MHz
+* **Logic Level:** 5V
+* **Communication:** Serial UART (115200 Baud), I2C, PWM
+* **Instruction:** Handles real-time 50Hz sensor polling and exact PWM generation. Connects to the Raspberry Pi via USB Serial.
+
+---
+
+### 🧭 LSM6DSOX 6-DoF IMU (Advanced Gyroscope)
+<div align="center">
+  <img src="photos/LSM6DSOX.png" width="400" alt="LSM6DSOX IMU"/>
+</div>
+
+* **Communication:** I2C Protocol (Address: `0x6A`)
+* **Gyro Range:** Configured to ±500 dps (Degrees Per Second)
+* **Accel Range:** Configured to ±2g
+* **Instruction:** An industrial-grade upgrade over the legacy MPU6050. Hardware-scaled down for extreme ground sensitivity and dead reckoning.
+
+---
+
+### ⚙️ GA25-370 12V DC Motor
+<div align="center">
+  <img src="photos/ga25motor.jpg" width="400" alt="GA25 Motor"/>
+</div>
+
+* **Operating Voltage:** 12V DC
+* **No-Load Speed:** 620 RPM
+* **Gearbox:** Full Metal Spur Gear
+* **Instruction:** The main drive actuator. Connected to the custom 2:1 rear differential. Powered directly by the raw 11.1V battery rail to maximize torque.
+
+---
+
+### 🔌 TB6612FNG Dual Motor Driver
+<div align="center">
+  <img src="photos/tb6612fng.png" width="400" alt="TB6612FNG"/>
+</div>
+
+* **Output Current:** 1.2A (Average) / 3.2A (Peak) per channel
+* **Technology:** MOSFET-based H-Bridge (Low Voltage Drop)
+* **Instruction:** Chosen over the outdated L298N for maximum power efficiency. `STBY` pin must be pulled HIGH for the motor to move.
+
+---
+
+### 🦇 3x HC-SR04 Ultrasonic Sonars
+<div align="center">
+  <img src="photos/ultrasonic.jfif" width="400" alt="HC-SR04"/>
+</div>
+
+* **Operating Frequency:** 40kHz Ultrasound
+* **Measuring Range:** 2cm – 400cm
+* **Resolution:** 0.3cm
+* **Instruction:** Placed at the Left, Center, and Right for precise wall-following. Triggered sequentially to prevent acoustic cross-talk.
+
+---
+
+### 🔋 GIFU 18650 Li-Ion Cell
+<div align="center">
+  <img src="photos/batary.jpg" width="400" alt="18650 Battery"/>
+</div>
+
+* **Capacity:** 1500mAh
+* **Nominal Voltage:** 3.7V per cell
+* **Chemistry:** Lithium-Ion (Li-Ion)
+* **Instruction:** Connected in series (3S) to provide a stable, high-current 11.1V raw power rail for the motor driver and Buck Converter.
+
+---
+
+### 📦 18650 Battery Holder
+<div align="center">
+  <img src="photos/batareyaotsek.jpg" width="400" alt="Battery Holder"/>
+</div>
+
+* **Form Factor:** Standard 18650 sizes
+* **Configuration:** 3-Slot Series Connection (3S)
+* **Wiring:** High-gauge copper leads
+* **Instruction:** Mechanically secures the batteries to the chassis to prevent disconnections from high-speed cornering vibrations.
 
 ---
 
