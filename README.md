@@ -15,15 +15,17 @@
 
 ## 📖 Table of Contents
 1. [Acknowledgments](#1-acknowledgments)
-2. [Team Structure & Roles](#2-team-structure--roles)
-3. [Electrical Schematics & Power Mathematics](#3-electrical-schematics--power-mathematics)
-4. [3D CAD Architecture & Spatial Placement](#4-3d-cad-architecture--spatial-placement)
-5. [Drivetrain Kinematics & Physics Formulation](#5-drivetrain-kinematics--physics-formulation)
-6. [Distributed Microcontroller Communication (SBC ↔ MCU)](#6-distributed-microcontroller-communication-sbc--mcu)
-7. [Mathematical Driving Dynamics & Control Theory](#7-mathematical-driving-dynamics--control-theory)
-8. [Engineering Challenges, Constraints & Trade-Offs](#8-engineering-challenges-constraints--trade-offs)
-9. [Experimental Results & Benchmark Metrics](#9-experimental-results--benchmark-metrics)
-10. [Conclusion & Next Iterations](#10-conclusion--next-iterations)
+2. [Project Overview](#2-project-overview)
+3. [Team Structure & Roles](#3-team-structure--roles)
+4. [Electrical Schematics & Power Mathematics](#4-electrical-schematics--power-mathematics)
+5. [Hardware Bill of Materials (BoM) & Interfacing Logic](#5-hardware-bill-of-materials-bom--interfacing-logic)
+6. [3D CAD Architecture & Spatial Placement](#6-3d-cad-architecture--spatial-placement)
+7. [Drivetrain Kinematics & Physics Formulation](#7-drivetrain-kinematics--physics-formulation)
+8. [Distributed Microcontroller Communication (SBC ↔ MCU)](#8-distributed-microcontroller-communication-sbc--mcu)
+9. [Mathematical Driving Dynamics & Control Theory](#9-mathematical-driving-dynamics--control-theory)
+10. [Engineering Challenges, Constraints & Trade-Offs](#10-engineering-challenges-constraints--trade-offs)
+11. [Experimental Results & Benchmark Metrics](#11-experimental-results--benchmark-metrics)
+12. [Conclusion & Next Iterations](#12-conclusion--next-iterations)
 
 ---
 
@@ -33,8 +35,15 @@ We express our sincere gratitude and appreciation to our dedicated mentor and in
 
 ---
 
+## 2. Project Overview
+
+The *Robots and Me* project represents our engineering submission for the **WRO Future Engineers 2026** competition hosted in Puerto Rico. The challenge requires designing, building, and programming a fully autonomous, Ackermann-steered vehicle capable of navigating a random track, avoiding obstacles, and executing a precise parallel parking maneuver without human intervention.
+
+This repository serves as a complete technical monograph of our systems-engineering approach. It documents everything from theoretical mathematical kinematics and robust dual-rail power architectures to advanced computer vision (OpenCV) and sensor fusion (IMU + Sonars) algorithms. Our design philosophy prioritizes algorithmic intelligence over expensive hardware, relying on mathematics to achieve extreme precision.
+
 ---
-## 2. Team Structure & Roles
+
+## 3. Team Structure & Roles
 
 Our project operates on an agile systems-engineering model where software, electrical, and mechanical domains interface seamlessly:
 
@@ -76,12 +85,12 @@ Our project operates on an agile systems-engineering model where software, elect
 
 ---
 
-## 3. Electrical Schematics & Power Mathematics
+## 4. Electrical Schematics & Power Mathematics
 
 *There is a well-known rule in robotics: **"If you haven't inhaled the toxic black smoke of a fried microcontroller at 2:00 AM, you are not a real engineer."*** 
 *We have definitely smelled that "magic smoke" in the past, which is exactly why we designed an extremely paranoid, highly isolated power distribution system to prevent it from happening again.*
 
-### 3.1 Power Distribution Architecture
+### 4.1 Power Distribution Architecture
 
 The vehicle uses a partitioned dual-rail power topology to completely isolate high-frequency logic electronics from motor inductive spikes:
 
@@ -89,3 +98,135 @@ The vehicle uses a partitioned dual-rail power topology to completely isolate hi
   <img src="schematics/power_distribution.drawio.png" width="700" alt="Power Distribution Schematic"/>
   <p><i>Figure: Dual-rail isolated power distribution system preventing MCU brownouts.</i></p>
 </div>
+
+---
+
+## 5. Hardware Bill of Materials (BoM) & Interfacing Logic
+
+Selecting the right hardware is only half the battle; knowing how to extract precise data from them mathematically is what makes the vehicle autonomous. Below is our verified hardware stack.
+
+<table>
+  <tr>
+    <td width="20%" align="center"><img src="photos/raspberrypi4bmodel.jpg" width="120"></td>
+    <td>
+      <b>Raspberry Pi 4 Model B (4GB) — The Brain</b><br>
+      <i>Instruction:</i> Handles heavy OpenCV computer vision algorithms. Powered directly from the 5V/5A Buck Converter via the 5V GPIO pins.
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="center"><img src="photos/arduinonano.jpg" width="120"></td>
+    <td>
+      <b>Arduino Nano — The Spinal Cord</b><br>
+      <i>Instruction:</i> Handles real-time 50Hz sensor polling and PWM generation. Connects to the Raspberry Pi via USB (Serial UART).
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="center"><img src="photos/lsm6dsox.png" width="120"></td>
+    <td>
+      <b>LSM6DSOX 6-DoF IMU (Advanced Gyroscope & Accelerometer)</b><br>
+      <i>Instruction:</i> An industrial-grade upgrade over the legacy MPU6050. Communicates via I2C at address <code>0x6A</code>. Gyroscope is hardware-scaled down to $\pm 500\text{ dps}$ for extreme sensitivity.
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="center"><img src="photos/ga25motor.jpg" width="120"></td>
+    <td>
+      <b>GA25-370 12V DC Motor (620 RPM)</b><br>
+      <i>Instruction:</i> The main drive actuator. Connected to the 2:1 rear differential. Powered directly by the raw 11.1V battery rail to maximize torque.
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="center"><img src="photos/tb6612fng.png" width="120"></td>
+    <td>
+      <b>TB6612FNG Dual Motor Driver</b><br>
+      <i>Instruction:</i> Chosen over the L298N for its low-voltage drop MOSFETs. `STBY` pin must be pulled HIGH for the motor to move.
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="center"><img src="photos/ultrasonic.jpg" width="120"></td>
+    <td>
+      <b>3x HC-SR04 Ultrasonic Sonars</b><br>
+      <i>Instruction:</i> Placed at the Left, Center, and Right for wall-following. Triggered sequentially to prevent acoustic cross-talk.
+    </td>
+  </tr>
+</table>
+
+---
+
+## 6. 3D CAD Architecture & Spatial Placement
+
+To optimize our manufacturing time, structural integrity, and rapid prototyping capabilities, we adopted a **Hybrid Fabrication Strategy**. We divided the vehicle's architecture into two distinct manufacturing processes: rapid laser cutting for the chassis and high-precision FDM 3D printing for the complex kinematics.
+
+### 6.1 The Main Chassis (Laser Cutting)
+
+<div align="center">
+  <img src="photos/corpus.jpg" width="450" alt="Laser Cut Chassis"/>
+  <p><i>Figure: Rapid prototyping the main base plate using laser-cut materials.</i></p>
+</div>
+
+* **Engineering Choice:** Instead of waiting 15+ hours to 3D print a large, flat base plate, we designed the main chassis to be laser-cut. This method is exceptionally convenient and vastly faster. It allowed us to rapidly iterate on the wheelbase dimensions, spatial placement of the battery, and sensor angles in a matter of minutes, while providing a highly rigid, shock-absorbing foundation for the robot.
+
+### 6.2 Complex Kinematic Parts (3D Printing)
+
+<div align="center">
+  <img src="photos/3d_detallari.jpg" width="450" alt="3D Printed Knuckles and Mounts"/>
+  <p><i>Figure: High-precision 3D printed mechanical components.</i></p>
+</div>
+
+* **Engineering Choice:** While laser cutting is perfect for flat planes, delicate and intricate mechanical components absolutely must be 3D printed. Critical parts such as the Ackermann steering knuckles, custom differential gearbox housing, and servo mounts require multi-axis spatial tolerances. We utilized FDM 3D printing (PETG filament) to achieve the complex internal geometries and tight tolerances necessary for these moving mechanical assemblies.
+
+---
+
+## 7. Drivetrain Kinematics & Physics Formulation
+
+> 🚧 **Status: Coming Soon.** 
+> *Mathematical derivations for the Ackermann steering geometry ($\cot\delta_o - \cot\delta_i = w/L$) and our custom 2:1 differential gearbox ratio will be published in this section.*
+
+---
+
+## 8. Distributed Microcontroller Communication (SBC ↔ MCU)
+
+To guarantee microsecond-level real-time execution, we implemented a **Distributed Control Architecture** between the Linux SBC and the bare-metal Arduino MCU.
+
+To prevent parsing delays and data corruption, we completely avoided ASCII strings. Instead, we developed a **Custom 5-Byte Binary Protocol** over USB Serial (115200 Baud):
+
+| Byte Index | Name | Data Range | Description |
+| :---: | :--- | :---: | :--- |
+| `0` | **Start Byte** | `0xAA` | Synchronization byte to indicate a new packet. |
+| `1` | **Drive Mode** | `0-3` | `0`=Stop, `1`=Forward, `2`=Reverse, `3`=Parallel Park. |
+| `2` | **Motor PWM** | `0-255` | 8-bit unsigned integer dictating raw speed. |
+| `3` | **Steering** | `0-180` | Servo angle mapped for Ackermann geometry. |
+| `4` | **Checksum** | `0-255` | XOR verification to detect data corruption mid-transmission. |
+
+Before executing any movement, the Arduino calculates an XOR checksum of the payload bytes (`Mode ⊕ PWM ⊕ Steering`). If it doesn't match the received checksum, the packet is immediately dropped to ensure safety.
+
+---
+
+## 9. Mathematical Driving Dynamics & Control Theory
+
+We deliberately rejected LiDAR, choosing instead to achieve LiDAR-level autonomy using only three sonars combined with an IMU. To solve the issue of sonars going "blind" in open spaces, we implemented a **Sensor Fusion Finite State Machine (FSM)**.
+
+* **State 1: Wall Following (Sonar PID):** Uses the left/right sonar error to keep the robot perfectly centered on straightaways.
+* **State 2: Dead Reckoning (Gyroscope):** When a wall disappears ($> 80\text{ cm}$), the sonars disconnect. The robot relies purely on mathematical integration from the LSM6DSOX to hold a straight line or execute a precise $90^\circ$ turn.
+
+Additionally, to counteract mechanical vibrations, we utilize dynamic $\Delta t$ integration tied to the CPU microsecond clock, combined with a Low-Pass Exponential Moving Average (EMA) filter.
+
+---
+
+## 10. Engineering Challenges, Constraints & Trade-Offs
+
+> 📘 **Note:** Due to the complexity and depth of the mechanical, electrical, and algorithmic problems we faced, we have documented them in a dedicated file. 
+> 👉 **[Click here to read our full Engineering Challenges Log.](challenges/README.md)**
+
+---
+
+## 11. Experimental Results & Benchmark Metrics
+
+> 🚧 **Status: Coming Soon.** 
+> *Track testing metrics, optimal PID tuning constants ($K_p, K_i, K_d$), and OpenCV framerate benchmarks will be added once physical track testing is finalized.*
+
+---
+
+## 12. Conclusion & Next Iterations
+
+> 🚧 **Status: Coming Soon.** 
+> *Final project reflections and future hardware/software improvement strategies will be concluded here.*

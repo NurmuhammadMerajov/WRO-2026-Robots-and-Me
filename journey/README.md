@@ -9,6 +9,7 @@ Welcome to our raw, unfiltered engineering log. Here we document our daily decis
 * [Day 2 — August 14, 2026: Point of No Return: Motors, Math & CAD Overhaul](#-day-2--august-14-2026-point-of-no-return-motors-math--cad-overhaul)
 * [Day 3 — August 15, 2026: Preparing the Brain's Memory](#-day-3--august-15-2026-preparing-the-brains-memory)
 * [Day 4 — August 18, 2026: First Brainwaves & Full CAD Assembly](#-day-4--august-18-2026-first-brainwaves--full-cad-assembly)
+* [Day 5 — August 24, 2026: The Physical Reality (3D & Electronics Assembled)](#-day-5--august-24-2026-the-physical-reality-3d--electronics-assembled)
 
 ---
 
@@ -136,6 +137,25 @@ Before hitting "Print" on 20 hours of PETG plastic, we used laser-cut wooden tem
   <img src="assets/laser_cut_template.png" width="300" alt="Laser Cut Template"/>
   <p><i>Figure 6: Custom laser-cut calibration tool and chassis prototype for physical geometry verification.</i></p>
 </div>
+
+---
+
+## 📅 Day 5 — August 24, 2026: The Physical Reality (3D & Electronics Assembled)
+
+After days of staring at screens and double-checking math, we finally crossed the bridge from digital space into the physical world.
+
+### 1. 3D Model Finalization & Chassis Assembly
+The continuous iterations of our CAD architecture have paid off. Today, the complete 3D model of our Ackermann-steered vehicle was finalized and physically assembled[cite: 1]. The printed chassis, differential gearbox, and steering knuckles were successfully mounted, ensuring the calculated wheelbase and Center of Gravity (CoG) matched our theoretical physics perfectly.
+
+### 2. Electronic Schematics & Wiring
+A robot without a nervous system is just a plastic paperweight. Today, the entire electrical schematic was successfully assembled and wired up[cite: 1]. 
+* We soldered and routed the partitioned dual-rail power distribution system.
+* The Raspberry Pi (Brain) and Arduino Nano (Spinal Cord) were physically mounted and connected via Serial USB.
+* The LSM6DSOX IMU, ultrasonic sonars, and TB6612FNG motor driver were fully integrated into the chassis layout.
+
+*No magic smoke escaped during the first power-on test, which we consider a massive engineering victory!*
+
+---
 
 ## 🛠️ Tools & Acknowledgments
 * **Design & Simulation:** Fusion 360, Draw.io
