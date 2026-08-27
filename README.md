@@ -19,6 +19,7 @@
 3. [Team Structure & Roles](#3-team-structure--roles)
 4. [Electrical Schematics & Power Mathematics](#4-electrical-schematics--power-mathematics)
 5. [Hardware Bill of Materials (BoM) & Interfacing Logic](#5-hardware-bill-of-materials-bom--interfacing-logic)
+   * [5.1 Low-Level Hardware Pinout Mapping](#51-low-level-hardware-pinout-mapping)
 6. [3D CAD Architecture & Spatial Placement](#6-3d-cad-architecture--spatial-placement)
 7. [Drivetrain Kinematics & Physics Formulation](#7-drivetrain-kinematics--physics-formulation)
 8. [Distributed Microcontroller Communication (SBC ↔ MCU)](#8-distributed-microcontroller-communication-sbc--mcu)
@@ -26,7 +27,6 @@
 10. [Engineering Challenges, Constraints & Trade-Offs](#10-engineering-challenges-constraints--trade-offs)
 11. [Experimental Results & Benchmark Metrics](#11-experimental-results--benchmark-metrics)
 12. [Conclusion & Next Iterations](#12-conclusion--next-iterations)
-
 ---
 
 ## 1. Acknowledgments
@@ -199,6 +199,33 @@ Selecting the right hardware is only half the battle; knowing how to extract pre
 * **Configuration:** 3-Slot Series Connection (3S)
 * **Wiring:** High-gauge copper leads
 * **Instruction:** Mechanically secures the batteries to the chassis to prevent disconnections from high-speed cornering vibrations.
+
+---
+
+### 5.1 Low-Level Hardware Pinout Mapping
+
+To ensure reproducible hardware assembly and strictly synchronized code variables, all peripheral logic is routed through the Arduino Nano according to the following fixed pinout architecture:
+
+**1. Brain-to-Spinal Cord Communication**
+* **Raspberry Pi 4 ↔ Arduino Nano:** Connected via **USB Serial** (115200 Baud). This avoids 3.3V/5V logic level shifting issues and ensures robust packet transmission without occupying standard GPIO pins.
+
+**2. I2C Navigation Sensors (5V Logic)**
+* **LSM6DSOX IMU `SDA`** ➔ Arduino Pin `A4` (I2C Data)
+* **LSM6DSOX IMU `SCL`** ➔ Arduino Pin `A5` (I2C Clock)
+
+**3. Actuators & Motor Control (PWM & Digital)**
+* **TB6612FNG `PWMA` (Speed)** ➔ Arduino Pin `D10` (Hardware PWM)
+* **TB6612FNG `AIN1` (Direction 1)** ➔ Arduino Pin `D8`
+* **TB6612FNG `AIN2` (Direction 2)** ➔ Arduino Pin `D7`
+* **TB6612FNG `STBY` (Standby)** ➔ Tied to `5V` (Always ON)
+* **25g Metal-Gear Servo (Steering)** ➔ Arduino Pin `D9` (Hardware PWM)
+
+**4. Acoustic Obstacle Detection (HC-SR04)**
+* **Left Sonar:** `TRIG` ➔ `D2` | `ECHO` ➔ `D3`
+* **Center Sonar:** `TRIG` ➔ `D4` | `ECHO` ➔ `D5`
+* **Right Sonar:** `TRIG` ➔ `D11` | `ECHO` ➔ `D12`
+
+> ⚠️ **Electrical Safety Note:** The Servo and GA25 Motor power lines (`VCC` / `VMOT`) are strictly connected to the raw battery rail and the 5V/5A Buck Converter, **never** to the Arduino's internal 5V pin, to prevent catastrophic brownouts during current spikes.
 
 ---
 
