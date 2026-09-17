@@ -10,6 +10,7 @@ Welcome to our raw, unfiltered engineering log. Here we document our daily decis
 * [Day 3 — August 15, 2026: Preparing the Brain's Memory](#-day-3--august-15-2026-preparing-the-brains-memory)
 * [Day 4 — August 18, 2026: First Brainwaves & Full CAD Assembly](#-day-4--august-18-2026-first-brainwaves--full-cad-assembly)
 * [Day 5 — August 24, 2026: The Physical Reality (3D & Electronics Assembled)](#-day-5--august-24-2026-the-physical-reality-3d--electronics-assembled)
+* [Day 6 — September 17, 2026: Trial by Fire (Battle Damage, Vision Control & Power Security)](#-day-6--september-17-2026-trial-by-fire-battle-damage-vision-control--power-security)
 
 ---
 
@@ -154,6 +155,41 @@ A robot without a nervous system is just a plastic paperweight. Today, the entir
 * The LSM6DSOX IMU, ultrasonic sonars, and TB6612FNG motor driver were fully integrated into the chassis layout.
 
 *No magic smoke escaped during the first power-on test, which we consider a massive engineering victory!*
+
+---
+
+## 📅 Day 6 — September 17, 2026: Trial by Fire (Battle Damage, Vision Control & Power Security)
+
+Building custom hardware is never a linear path. Today we faced real hardware casualties on the workbench, but emerged with a more resilient power architecture and a functional camera-driven vehicle.
+
+<div align="center">
+  <img src="assets/day06_cat_war.jfif" width="350" alt="Cat in War Meme"/>
+  <p><i>Figure 7: Surviving the battle of magic smoke, blown MOSFETs, and dead sensors.</i></p>
+</div>
+
+---
+
+### 1. Workbench Casualties & Quality Control
+* **Defective Ultrasonic Sensor:** During sonar array calibration, 1 ultrasonic sensor failed quality checks (dead echo line). It was promptly isolated and replaced with a fully functional unit.
+* **Motor Driver Burnout:** High-torque stall testing took its toll — 1 x TB6612FNG motor driver suffered thermal failure and burned out. We replaced the driver and double-checked current limits to prevent future overcurrent spikes.
+
+---
+
+### 2. Dedicated Powerbank Integration for Pi Safety
+To guarantee complete isolation and zero under-voltage brownouts for the Raspberry Pi 4B, we integrated a dedicated **5V/3A Powerbank**:
+* **Pure Power Rail:** The Pi 4B now receives a clean, unfluctuating 5V/3A supply via Type-C, completely insulated from motor back-EMF spikes.
+* **Stable Serial Link:** The Arduino Nano remains safely powered directly from the Pi via USB, keeping the entire logic circuit rock-solid.
+
+---
+
+### 3. Chassis & Structural Enclosure Upgrades
+* Remodeled and 3D-printed an upgraded chassis enclosure (korpus) to improve physical protection for the electronics, secure loose wiring, and maintain optimal weight distribution.
+
+---
+
+### 4. Closed-Loop Camera Driving Tests
+* **Vision System Live:** Mounted the camera module and connected the full processing pipeline.
+* **Computer Vision Drive:** Executed real-time visual driving tests where the Raspberry Pi processed live video feeds and successfully sent low-latency steering/speed commands to the Arduino Nano.
 
 ---
 
