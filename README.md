@@ -229,25 +229,50 @@ To ensure reproducible hardware assembly and strictly synchronized code variable
 
 ---
 
-## 6. 3D CAD Architecture & Spatial Placement
+## 6. Spatial Placement & Multi-Tier Physical Architecture
 
-To optimize our manufacturing time, structural integrity, and rapid prototyping capabilities, we adopted a **Hybrid Fabrication Strategy**. We divided the vehicle's architecture into two distinct manufacturing processes: rapid laser cutting for the chassis and high-precision FDM 3D printing for the complex kinematics.
+To balance weight distribution and simplify component replacement, the vehicle utilizes a **Multi-Tiered Modular Structure** combining laser-cut wooden chassis plates with PETG 3D-printed functional mounts.
 
-### 6.1 The Main Chassis (Laser Cutting)
-
-<div align="center">
-  <img src="photos/corpus.jpg" width="450" alt="Laser Cut Chassis"/>
-  <p><i>Figure: Rapid prototyping the main base plate using laser-cut materials.</i></p>
-</div>
-
-* **Engineering Choice:** Instead of waiting 15+ hours to 3D print a large, flat base plate, we designed the main chassis to be laser-cut. This method is exceptionally convenient and vastly faster. It allowed us to rapidly iterate on the wheelbase dimensions, spatial placement of the battery, and sensor angles in a matter of minutes, while providing a highly rigid, shock-absorbing foundation for the robot.
-
-### 6.2 Complex Kinematic Parts (3D Printing)
+### 6.1 Front Sensor & Vision Integration
 
 <div align="center">
-  <img src="photos/3d_detallari.jpg" width="450" alt="3D Printed Knuckles and Mounts"/>
-  <p><i>Figure: High-precision 3D printed mechanical components.</i></p>
+  <img src="photos/7.jpg" width="400" alt="Front Camera and Sonar Module"/>
+  <p><i>Figure 6.1: Front elevation view showing the Raspberry Pi Camera V2 and primary HC-SR04 ultrasonic sonar integrated into the yellow 3D-printed front plate.</i></p>
 </div>
+
+* **Raspberry Pi Camera V2:** Centrally mounted at the optimal tilt angle for real-time OpenCV track/line segmentation.
+* **Acoustic Array:** Mounted directly beneath the camera to monitor front wall distance without obstructing the optical field of view (FOV).
+
+---
+
+### 6.2 Side Profiles & Internal Shield Stack
+
+<div align="center">
+  <img src="photos/8.jpg" width="600" alt="Left Side Profile - Electronics and Cooling"/>
+  <p><i>Figure 6.2: Left profile detailing the multi-tier structure, side ultrasonic sensor, custom perfboard shield, 12V cooling blower fan, and top-mounted powerbank.</i></p>
+</div>
+
+* **Thermal Management:** A dedicated 12V DC blower fan is positioned above the central compute unit to maintain safe operating temperatures during heavy OpenCV workloads.
+* **Power & Logic Separation:** The top deck holds the dedicated REEX powerbank, feeding isolated 5V/3A power to the Raspberry Pi 4B.
+
+<div align="center">
+  <img src="photos/9.jpg" width="600" alt="Right Side Profile - Steering and Power Control"/>
+  <p><i>Figure 6.3: Right profile showing the Surpass Hobby 25g digital steering servo, main power toggle switch, and Type-C power delivery link.</i></p>
+</div>
+
+* **Steering Actuation:** Surpass Hobby 25g Metal-Gear Digital Servo directly drives the Ackermann steering linkages.
+* **Power Toggle:** A heavy-duty rocker switch interrupts the main 11.1V battery rail for emergency shutoff during field testing.
+
+---
+
+### 6.3 Top-Down Spatial Layout
+
+<div align="center">
+  <img src="photos/10.jpg" width="500" alt="Top-Down Plan View"/>
+  <p><i>Figure 6.4: Top-down plan view illustrating battery/powerbank alignment over the center of gravity (CoG) and clean ribbon cable routing.</i></p>
+</div>
+
+* **Center of Gravity (CoG):** The heavy powerbank and battery cells are centralized over the rear-driven axle to optimize rear-tire traction during high-acceleration cornering.
 
 * **Engineering Choice:** While laser cutting is perfect for flat planes, delicate and intricate mechanical components absolutely must be 3D printed. Critical parts such as the Ackermann steering knuckles, custom differential gearbox housing, and servo mounts require multi-axis spatial tolerances. We utilized FDM 3D printing (PETG filament) to achieve the complex internal geometries and tight tolerances necessary for these moving mechanical assemblies.
 
@@ -255,12 +280,7 @@ To optimize our manufacturing time, structural integrity, and rapid prototyping 
 
 ## 7. Drivetrain Kinematics & Physics Formulation
 
-To achieve precise trajectory execution during high-speed cornering and wall-following, we derived the complete theoretical kinematics for both our Ackermann steering mechanism and custom 2:1 bevel gear differential.
-
-<div align="center">
-  <img src="photos/8.jpg" width="600" alt="Drivetrain Kinematics & Mechanical Assembly"/>
-  <p><i>Figure 7.1: Physical drivetrain assembly featuring the Ackermann front linkages and rear differential.</i></p>
-</div>
+To achieve precise trajectory execution during high-speed cornering and wall-following, we derived the theoretical kinematics for both our Ackermann steering mechanism and custom 2:1 bevel gear differential.
 
 ### 7.1 Ackermann Steering Geometry
 
@@ -274,13 +294,6 @@ Where:
 * $w$ = Track width ($160\text{ mm}$)
 * $L$ = Wheelbase length ($220\text{ mm}$)
 
-<div align="center">
-  <img src="photos/9.jpg" width="600" alt="Ackermann Steering Knuckles and Linkages"/>
-  <p><i>Figure 7.2: Close-up of 3D-printed Ackermann steering knuckles and Surpass Hobby digital servo linkage.</i></p>
-</div>
-
-The digital servo angle ($\theta_{\text{servo}}$) is non-linearly mapped in software to produce proportional inner/outer steering angles, allowing the vehicle to negotiate sharp $90^\circ$ track turns without loss of lateral traction.
-
 ---
 
 ### 7.2 Differential Gearbox Kinematics
@@ -291,15 +304,13 @@ $$i = \frac{Z_{\text{crown}}}{Z_{\text{pinion}}} = \frac{30}{15} = 2.0$$
 
 $$\tau_{\text{wheel}} = \tau_{\text{motor}} \times i \times \eta_{\text{gear}}$$
 
-Where $\eta_{\text{gear}} \approx 0.88$ represents the mechanical efficiency of PETG printed gears. At $620\text{ RPM}$ motor output, the final wheel speed settles at $310\text{ RPM}$, yielding a linear velocity of $0.97\text{ m/s}$ ($3.5\text{ km/h}$) — providing the perfect balance between camera frame rate and mechanical torque.
+Where $\eta_{\text{gear}} \approx 0.88$ represents the mechanical efficiency of PETG printed gears. At $620\text{ RPM}$ motor output, the final wheel speed settles at $310\text{ RPM}$, yielding a linear velocity of $0.97\text{ m/s}$ ($3.5\text{ km/h}$).
 
 ---
 
 ## 8. Distributed Microcontroller Communication (SBC ↔ MCU)
 
-To guarantee microsecond-level real-time execution, we implemented a **Distributed Control Architecture** between the Linux SBC and the bare-metal Arduino MCU.
-
-To prevent parsing delays and data corruption, we completely avoided ASCII strings. Instead, we developed a **Custom 5-Byte Binary Protocol** over USB Serial (115200 Baud):
+To guarantee microsecond-level real-time execution, we implemented a **Distributed Control Architecture** between the Linux SBC and the bare-metal Arduino MCU over USB Serial (115200 Baud) using a custom 5-byte binary protocol:
 
 | Byte Index | Name | Data Range | Description |
 | :---: | :--- | :---: | :--- |
@@ -307,42 +318,29 @@ To prevent parsing delays and data corruption, we completely avoided ASCII strin
 | `1` | **Drive Mode** | `0-3` | `0`=Stop, `1`=Forward, `2`=Reverse, `3`=Parallel Park. |
 | `2` | **Motor PWM** | `0-255` | 8-bit unsigned integer dictating raw speed. |
 | `3` | **Steering** | `0-180` | Servo angle mapped for Ackermann geometry. |
-| `4` | **Checksum** | `0-255` | XOR verification to detect data corruption mid-transmission. |
-
-Before executing any movement, the Arduino calculates an XOR checksum of the payload bytes (`Mode ⊕ PWM ⊕ Steering`). If it doesn't match the received checksum, the packet is immediately dropped to ensure safety.
+| `4` | **Checksum** | `0-255` | XOR verification (`Mode ⊕ PWM ⊕ Steering`). |
 
 ---
 
 ## 9. Mathematical Driving Dynamics & Control Theory
 
-We deliberately rejected LiDAR, choosing instead to achieve LiDAR-level autonomy using only three sonars combined with an IMU. To solve the issue of sonars going "blind" in open spaces, we implemented a **Sensor Fusion Finite State Machine (FSM)**.
+We implemented a **Sensor Fusion Finite State Machine (FSM)** combining three HC-SR04 sonars with the LSM6DSOX IMU:
 
-* **State 1: Wall Following (Sonar PID):** Uses the left/right sonar error to keep the robot perfectly centered on straightaways.
-* **State 2: Dead Reckoning (Gyroscope):** When a wall disappears ($> 80\text{ cm}$), the sonars disconnect. The robot relies purely on mathematical integration from the LSM6DSOX to hold a straight line or execute a precise $90^\circ$ turn.
-
-Additionally, to counteract mechanical vibrations, we utilize dynamic $\Delta t$ integration tied to the CPU microsecond clock, combined with a Low-Pass Exponential Moving Average (EMA) filter.
+* **State 1: Wall Following (Sonar PID):** Uses left/right sonar error to keep the robot centered on straightaways.
+* **State 2: Dead Reckoning (Gyroscope):** When walls disappear ($> 80\text{ cm}$), the robot integrates yaw angle from the IMU using dynamic $\Delta t$ and an Exponential Moving Average (EMA) filter to hold heading or execute exact $90^\circ$ turns.
 
 ---
 
 ## 10. Engineering Challenges, Constraints & Trade-Offs
 
-> 📘 **Note:** Due to the complexity and depth of the mechanical, electrical, and algorithmic problems we faced, we have documented them in a dedicated file. 
-> 👉 **[Click here to read our full Engineering Challenges Log.](challenges/README.md)**
+> 📘 **Note:** Full documentation of our mechanical, electrical, and algorithmic failure modes and solutions is available in our dedicated log.
+> 👉 **[Read our full Engineering Challenges Log.](challenges/README.md)**
 
 ---
 
 ## 11. Experimental Results & Benchmark Metrics
 
-During physical track trials, the vehicle underwent rigorous testing across dynamic lighting conditions, varied surface friction, and continuous multi-lap runs.
-
-<div align="center">
-  <img src="photos/10.jpg" width="650" alt="Autonomous Track Navigation and Live Testing"/>
-  <p><i>Figure 11.1: Live autonomous track navigation test showing real-time vision processing and obstacle avoidance.</i></p>
-</div>
-
-### 11.1 Vision Pipeline & Processing Latency Benchmark
-
-The OpenCV vision pipeline running on the Raspberry Pi 4B achieved real-time performance metrics without dropping frames:
+### 11.1 Vision Pipeline & Latency Benchmark
 
 | Processing Pipeline Stage | Execution Time (ms) | Target Benchmark | Status |
 | :--- | :---: | :---: | :---: |
@@ -355,15 +353,15 @@ The OpenCV vision pipeline running on the Raspberry Pi 4B achieved real-time per
 ### 11.2 Closed-Loop Reliability Metrics
 
 * **Lap Completion Rate:** $100\%$ across 15 consecutive trials (3 full laps per trial).
-* **Yaw Angle Drift (IMU Fusion):** $< 0.4^\circ$ heading error per $360^\circ$ rotation after applying dynamic EMA filtering.
-* **Power Stability:** $0$ brownouts or system resets recorded on the Raspberry Pi 4B during maximum motor stall tests, confirming the success of the isolated dual-rail power topology.
+* **Yaw Angle Drift:** $< 0.4^\circ$ heading error per $360^\circ$ rotation after applying dynamic EMA filtering.
+* **Power Stability:** $0$ brownouts or resets on the Raspberry Pi 4B during full motor stall tests.
 
 ---
 
 ## 12. Conclusion & Next Iterations
 
-The *Robots and Me* autonomous vehicle successfully fulfills all requirements set by the WRO Future Engineers 2026 rules. Through a rigorous systems-engineering process, we demonstrated that advanced mathematical modeling, custom mechanical design, and robust sensor fusion can achieve extreme autonomous precision without relying on high-cost sensors.
+The *Robots and Me* vehicle successfully meets all WRO Future Engineers 2026 technical rules using custom mechanical hardware, dual-rail power isolation, and mathematical sensor fusion.
 
-### Future Iteration Plan
-1. **PCB Integration:** Transitioning from perfboard shield prototyping to a custom multi-layer printed circuit board (PCB) to further diminish signal noise.
-2. **Adaptive Speed Scaling:** Implementing vision-based curvature estimation to dynamically adjust drive motor PWM before entering tight corners.
+### Next Iterations
+1. **PCB Customization:** Transitioning from perfboard shield prototyping to a integrated PCB.
+2. **Adaptive Speed Scaling:** Real-time PWM reduction based on camera curvature detection before turns.
